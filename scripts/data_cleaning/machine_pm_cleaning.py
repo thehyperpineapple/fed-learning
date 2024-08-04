@@ -19,21 +19,17 @@ df = pd.read_csv("../../Datasets/Machine Predictive Maintenance Classification/p
 # - Target : Failure or Not
 # - Failure Type : Type of Failure
 
-# Concatenate the sampled dataframes
-df_sampled = pd.concat([df[df['Type'] == 'H'].sample(n=1003, random_state=42),
-                        df[df['Type'] == 'L'].sample(n=1003, random_state=42), 
-                        df[df['Type'] == 'M'].sample(n=1003, random_state=42)])
-
-
-# Normalize features
 scaling_features = ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"] 
-
+# df_scaled = scaler.fit_transform(df_sampled[scaling_features])
 for feature in scaling_features:
-    df_sampled[feature] = df_sampled[feature]/df_sampled[feature].max()
+    df[feature] = df[feature]/df[feature].max()
 
+
+df = df.drop(['UDI', 'Product ID', 'Type'], axis=1)
 
 # Save datasets
-binary_df = df.drop(columns=["UDI", "Product ID", "Failure Type"])
-multi_class_df = df.drop(columns=["UDI", "Product ID", "Target"])
+binary_df = multi_class_df = df
+binary_df = binary_df.drop(columns=["Failure Type"])
+multi_class_df = multi_class_df.drop(columns=["Target"])
 binary_df.to_csv("../../Datasets/Machine Predictive Maintenance Classification/binary_classification.csv")
 multi_class_df.to_csv("../../Datasets/Machine Predictive Maintenance Classification/multi_class_classification.csv")
