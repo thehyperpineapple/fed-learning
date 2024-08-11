@@ -124,6 +124,9 @@ celerybeat.pid
 # Jupyter Notebooks
 *.ipynb
 
+#PyTorch Tensors
+*.pt
+
 # Environments
 .env
 .venv

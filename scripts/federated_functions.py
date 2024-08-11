@@ -49,3 +49,4 @@ def create_subsets(num_subsets, train_dataset, subsets):
         end_idx = (i + 1) * subset_size if i != num_subsets - 1 else len(train_dataset)
         subset_indices = indices[start_idx:end_idx]
         subsets.append(Subset(train_dataset, subset_indices))
+
