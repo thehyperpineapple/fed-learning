@@ -122,7 +122,12 @@ celerybeat.pid
 *.sage.py
 
 # Jupyter Notebooks
-*.ipynb
+# *.ipynb
+
+datasets/telemetry_analysis/
+
+#PyTorch Tensors
+*.pt
 
 # Environments
 .env
