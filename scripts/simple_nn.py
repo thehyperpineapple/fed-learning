@@ -84,9 +84,5 @@ def run_model(epochs: int, lr: float, model: SimpleNN, weights_list: list, train
 
     # Should be (batch_size, input_size)
 
-    # Make sure when you load data in your DataLoader, it matches this shape
-    for feature, labels in test_loader:
-        print(feature.shape)  # Should print (batch_size, input_size)
-        break
     metrics = test(trained_model, test_loader)
     print(metrics)

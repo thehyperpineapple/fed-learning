@@ -50,3 +50,23 @@ def create_subsets(num_subsets, train_dataset, subsets):
         subset_indices = indices[start_idx:end_idx]
         subsets.append(Subset(train_dataset, subset_indices))
 
+def fedprox_aggregate(global_model, local_models, mu=0.01):
+    avg_model = global_model
+    for key in avg_model.state_dict().keys():
+        avg_model.state_dict()[key] = torch.zeros_like(avg_model.state_dict()[key])
+        for local_model in local_models:
+            avg_model.state_dict()[key] += (1 - mu) * local_model.state_dict()[key]
+        avg_model.state_dict()[key] += mu * global_model.state_dict()[key]
+    avg_model.state_dict()[key] = torch.div(avg_model.state_dict()[key], len(local_models))
+    return avg_model
+
+
+def scaffold_aggregate(global_model, local_models, global_control_variate, local_control_variates):
+    avg_model = global_model
+    for key in avg_model.state_dict().keys():
+        avg_model.state_dict()[key] = torch.zeros_like(avg_model.state_dict()[key])
+        for i in range(len(local_models)):
+            control_delta = local_control_variates[i].state_dict()[key] - global_control_variate.state_dict()[key]
+            avg_model.state_dict()[key] += local_models[i].state_dict()[key] - control_delta
+        avg_model.state_dict()[key] = torch.div(avg_model.state_dict()[key], len(local_models))
+    return avg_model
