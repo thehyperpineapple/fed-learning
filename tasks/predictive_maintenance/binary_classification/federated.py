@@ -184,8 +184,3 @@ new_model.load_state_dict(averaged_weights)
 loss, accuracy = test(model_1, DataLoader(test_dataset, batch_size=2, shuffle=False))
 print(f"{loss = }")
 print(f"{accuracy = }")
-
-
-
-
-

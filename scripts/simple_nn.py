@@ -27,7 +27,7 @@ def train(net, trainloader, optimizer, epochs):
     criterion = torch.nn.CrossEntropyLoss()
     net.train()
     for _ in range(epochs):
-        print(f"Epoch {_+1}")
+        # print(f"Epoch {_+1}")
         for feature, labels in trainloader:
             optimizer.zero_grad()
             loss = criterion(net(feature), labels)
@@ -84,5 +84,5 @@ def run_model(epochs: int, lr: float, model: SimpleNN, weights_list: list, train
 
     # Should be (batch_size, input_size)
 
-    metrics = test(trained_model, test_loader)
-    print(metrics)
+    # metrics = test(trained_model, test_loader)
+    # print(metrics)

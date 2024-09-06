@@ -1,2 +1,0 @@
-- [Federated Optimization in Heterogeneous Networks](https://arxiv.org/abs/1812.06127)
-- [FedEWA: Federated Learning with Elastic Weighted Averaging](https://ieeexplore.ieee.org/document/9892851)
