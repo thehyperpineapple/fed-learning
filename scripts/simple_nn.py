@@ -7,28 +7,34 @@ import torch
 from datasets_gen import CustomDataset
 from sklearn.metrics import precision_score, recall_score, f1_score
 
+# Check if GPU is available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 class SimpleNN(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(SimpleNN, self).__init__()
         self.fc1 = nn.Linear(input_size, hidden_size)
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(hidden_size, num_classes)
+        self.relu1 = nn.ReLU()
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.relu2 = nn.ReLU()
+        self.fc3 = nn.Linear(hidden_size, num_classes)
 
     def forward(self, x):
-        # Remove the view line if the input is already the correct shape
-        # x = x.view(-1, self.fc1.in_features) 
         out = self.fc1(x)
-        out = self.relu(out)
+        out = self.relu1(out)
         out = self.fc2(out)
+        out = self.relu2(out)
+        out = self.fc3(out)
         return out
     
 def train(net, trainloader, optimizer, epochs):
     """Train the network on the training set."""
     criterion = torch.nn.CrossEntropyLoss()
+    net.to(device)
     net.train()
     for _ in range(epochs):
-        # print(f"Epoch {_+1}")
         for feature, labels in trainloader:
+            feature, labels = feature.to(device), labels.to(device)  # Move data to GPU
             optimizer.zero_grad()
             loss = criterion(net(feature), labels)
             loss.backward()
@@ -42,18 +48,20 @@ def test(net, testloader):
     correct, loss = 0, 0.0
     all_labels = []
     all_predictions = []
-    
+
+    net.to(device)
     net.eval()
     with torch.no_grad():
         for feature, labels in testloader:
-            # Should be (batch_size, input_size)
+            # Move data to GPU if available
+            feature, labels = feature.to(device), labels.to(device)
             outputs = net(feature)
             loss += criterion(outputs, labels).item()
             _, predicted = torch.max(outputs.data, 1)
             correct += (predicted == labels).sum().item()
             
-            all_labels.extend(labels.cpu().numpy())
-            all_predictions.extend(predicted.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())  # Move to CPU for evaluation
+            all_predictions.extend(predicted.cpu().numpy())  # Move to CPU for evaluation
     
     accuracy = correct / len(testloader.dataset)
     precision = precision_score(all_labels, all_predictions, average='weighted')
@@ -63,26 +71,24 @@ def test(net, testloader):
     return [loss, accuracy, precision, recall, f1]
 
 
+
 def run_model(epochs: int, lr: float, model: SimpleNN, weights_list: list, train_dataset: CustomDataset, test_dataset: CustomDataset, momentum: float = 0.9):
     """A minimal (but complete) training loop"""
 
-    # instantiate the model
-    # model = SimpleNN(input_size, hidden_size, num_classes)
+    # Move model to GPU
+    model = model.to(device)
 
-    # define optimiser with hyperparameters supplied
-    optim = torch.optim.SGD(model.parameters(), lr=lr, momentum=momentum)
+    # Define optimiser with hyperparameters supplied
+    optim = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
 
+    train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
-    train_loader = DataLoader(train_dataset, batch_size=2, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=2, shuffle=False)
-
-    # train for the specified number of epochs
+    # Train for the specified number of epochs
     trained_model = train(model, train_loader, optim, epochs)
     
     weights_list.append(trained_model.state_dict())
-    # training is completed, then evaluate model on the test set
 
-    # Should be (batch_size, input_size)
-
+    # After training, evaluate model on the test set
     # metrics = test(trained_model, test_loader)
     # print(metrics)
