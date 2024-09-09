@@ -8,7 +8,7 @@ from rich.table import Table
 
 sys.path.append('../../scripts')
 from datasets_gen import CustomDataset, create_subsets
-from simple_nn import SimpleNN, RNN, train, test, run_model
+from simple_nn import SimpleNN, train, test, run_model
 from federated_functions import average_model_weights, fedprox_aggregate, scaffold_aggregate
 
 
@@ -41,7 +41,7 @@ subsets = create_subsets(subsets, num_subsets, train_dataset)
 
 input_size = X.shape[1]
 hidden_size = 20
-num_classes = 2
+num_classes = 1
 
 training_weights = []
 # print(len(subsets[0]))
@@ -52,7 +52,7 @@ for i in range(len(subsets)):
     # model.cuda()
     run_model(epochs=5, lr=0.01, model=model, weights_list=training_weights, train_dataset=subsets[i], test_dataset=test_dataset )
     print(f"Status: Completed training model {i+1} ")
-    # torch.save(models[i].state_dict(), f"federated_models/federated_model_{i+1}.pt")
+
 
 # len(training_weights)
 

@@ -22,7 +22,7 @@ test_dataset = CustomDataset(x_test, y_test)
 
 input_size = X.shape[1]
 hidden_size = 10
-num_classes = 2
+num_classes = 1
 
 print("Status: Creating model")
 model = SimpleNN(input_size, hidden_size, num_classes)
