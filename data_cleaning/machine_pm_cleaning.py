@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # %%
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -9,6 +10,12 @@ from imblearn.over_sampling import SMOTE
 df = pd.read_csv("../datasets/predictive_maintenance/predictive_maintenance.csv")
 
 # %% [markdown]
+=======
+import pandas as pd
+
+df = pd.read_csv("../../Datasets/Machine Predictive Maintenance Classification/predictive_maintenance.csv")
+
+>>>>>>> 56dae2d39cc93cd6b73324bcdf3e57c8b1f32ca0
 # ### Feature Columns
 # 
 # - UID: unique identifier ranging from 1 to 10000
@@ -26,6 +33,7 @@ df = pd.read_csv("../datasets/predictive_maintenance/predictive_maintenance.csv"
 # - Target : Failure or Not
 # - Failure Type : Type of Failure
 
+<<<<<<< HEAD
 # %%
 df.info()
 
@@ -34,12 +42,15 @@ df['Target'].value_counts()
 
 # %%
 # scaler = StandardScaler()
+=======
+>>>>>>> 56dae2d39cc93cd6b73324bcdf3e57c8b1f32ca0
 scaling_features = ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"] 
 # df_scaled = scaler.fit_transform(df_sampled[scaling_features])
 for feature in scaling_features:
     df[feature] = df[feature]/df[feature].max()
 
 
+<<<<<<< HEAD
 # %%
 # df_sampled.describe()
 df.describe()
@@ -191,3 +202,13 @@ print(f"Optimal C: {C_optimal}, Optimal max_iter: {max_iter_optimal}")
 
 
 
+=======
+df = df.drop(['UDI', 'Product ID', 'Type'], axis=1)
+
+# Save datasets
+binary_df = multi_class_df = df
+binary_df = binary_df.drop(columns=["Failure Type"])
+multi_class_df = multi_class_df.drop(columns=["Target"])
+binary_df.to_csv("../../Datasets/Machine Predictive Maintenance Classification/binary_classification.csv")
+multi_class_df.to_csv("../../Datasets/Machine Predictive Maintenance Classification/multi_class_classification.csv")
+>>>>>>> 56dae2d39cc93cd6b73324bcdf3e57c8b1f32ca0
