@@ -1,0 +1,43 @@
+﻿Nodes,Models,Accuracy,Precision,Recall,F1-Score
+1,Logistic Regression,0.7477,0.7481,0.7477,0.7476
+1,Ridge Classifier,0.7379,0.7385,0.7379,0.7377
+1,Decision Tree,0.9464,0.9466,0.9464,0.9464
+1,Random Forest,0.9627,0.9634,0.9627,0.9627
+1,AdaBoost,0.904,0.9041,0.904,0.904
+1,Gradient Boosting,0.9291,0.9305,0.9291,0.9291
+5,Logistic Regression,0.7418,0.7422,0.7418,0.7417
+5,Ridge Classifier,0.7413,0.7421,0.7413,0.7411
+5,Decision Tree,0.9144,0.9144,0.9144,0.9144
+5,Random Forest,0.9374,0.938,0.9374,0.9374
+5,AdaBoost,0.9035,0.9035,0.9035,0.9035
+5,Gradient Boosting,0.925,0.9262,0.925,0.9249
+10,Logistic Regression,0.7402,0.7407,0.7402,0.7401
+10,Ridge Classifier,0.7371,0.738,0.7371,0.7369
+10,Decision Tree,0.8955,0.8955,0.8955,0.8955
+10,Random Forest,0.9263,0.9276,0.9263,0.9262
+10,AdaBoost,0.8864,0.8864,0.8864,0.8864
+10,Gradient Boosting,0.9224,0.9242,0.9224,0.9223
+25,Logistic Regression,0.7348,0.7352,0.7348,0.7347
+25,Ridge Classifier,0.7356,0.7365,0.7356,0.7353
+25,Decision Tree,0.889,0.889,0.889,0.889
+25,Random Forest,0.9154,0.9162,0.9154,0.9154
+25,AdaBoost,0.8867,0.8867,0.8867,0.8867
+25,Gradient Boosting,0.9092,0.9104,0.9092,0.9091
+50,Logistic Regression,0.7247,0.7251,0.7247,0.7246
+50,Ridge Classifier,0.734,0.7349,0.734,0.7338
+50,Decision Tree,0.8699,0.8705,0.8699,0.8698
+50,Random Forest,0.9107,0.9121,0.9107,0.9107
+50,AdaBoost,0.8898,0.8899,0.8898,0.8898
+50,Gradient Boosting,0.9053,0.9056,0.9053,0.9053
+100,Logistic Regression,0.7087,0.7088,0.7087,0.7086
+100,Ridge Classifier,0.7307,0.7313,0.7307,0.7305
+100,Decision Tree,0.8541,0.8551,0.8541,0.854
+100,Random Forest,0.858,0.8591,0.858,0.8578
+100,AdaBoost,0.8567,0.8572,0.8567,0.8566
+100,Gradient Boosting,0.8807,0.8808,0.8807,0.8807
+200,Logistic Regression,0.6981,0.6981,0.6981,0.6981
+200,Ridge Classifier,0.7288,0.7291,0.7288,0.7288
+200,Decision Tree,0.8111,0.8135,0.8111,0.8108
+200,Random Forest,0.8497,0.8506,0.8497,0.8496
+200,AdaBoost,0.7935,0.7974,0.7935,0.7929
+200,Gradient Boosting,0.8543,0.8544,0.8543,0.8543
